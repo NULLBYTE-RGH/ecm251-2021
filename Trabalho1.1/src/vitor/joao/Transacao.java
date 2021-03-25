@@ -21,7 +21,7 @@ public class Transacao {
         return r.nextInt((max - min) + 1) + min;
     }
 
-    public String gerarCode(Usuario usuario, Conta conta, double valor, int id){
+    public String gerarCode(Usuario usuario, Conta conta, double valor){
         int Rand = getRandomNumberInRange(1000, 9999);
         return ((conta.idConta)+ ';' + (usuario.nome) + ';' + valor+ ';' + Rand);
 
