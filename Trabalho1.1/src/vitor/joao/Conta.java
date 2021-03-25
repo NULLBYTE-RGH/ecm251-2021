@@ -3,23 +3,26 @@ package vitor.joao;
 public class Conta {
     //Atributos das classe
     private Usuario usuario;
-    private double saldo;
-    private int id;
 
-    public Conta(String nome, double saldoInicial, int id) {
+    private double saldo;
+    public int idConta;
+
+    //construtor
+    public Conta(String nome, double saldoInicial, int idConta, String nome_Usuario, String senha, String email) {
         this.saldo = saldoInicial;
-        this.id = id;
-        this.usuario = new Usuario(nome);
+        this.idConta = idConta;
+        this.usuario = new Usuario(nome_Usuario, senha, email);
 
     }
 
     //Métodos da classe
+
     public void depositar(double valor) {
         //this.saldo = this.saldo + valor;
         this.saldo += valor;
     }
 
-    public boolean sacar(double valor) {
+    public boolean Retirar(double valor) {
         if(valor <= this.saldo){
             this.saldo -= valor;
             return true;
@@ -27,9 +30,19 @@ public class Conta {
         return false;
     }
 
-    public boolean transferirDinheiro(Conta destino, double valor) {
-        if(this.sacar(valor)){
-            destino.depositar(valor);
+
+    public boolean Receber(double valor) {
+        if(valor <= this.saldo){
+            this.saldo -= valor;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean FazerPagamento(Conta Pagador, Conta Recebedor , String[] QRCode) {
+        int valor = (Integer.parseInt(QRCode[2]));
+        if(this.Retirar(valor)){                                               // se o valor a ser pago for menor do que o saldo da conta entao True
+            Recebedor.depositar(valor);
             return true;
         }
         return false;
