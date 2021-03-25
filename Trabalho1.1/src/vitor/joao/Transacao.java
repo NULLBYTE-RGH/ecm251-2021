@@ -1,5 +1,8 @@
 package vitor.joao;
 
+//joao vitor quirino sarti  Ra = 18.01224-8
+//mateus rossini Ra =
+
 import java.util.Random;
 
 public class Transacao {
