@@ -1,7 +1,7 @@
 package vitor.joao;
 
 //joao vitor quirino sarti  Ra = 18.01224-8
-//mateus rossini Ra =
+//mateus rossini Ra = 18.01060-0
 
 public class Usuario {
     public String nome;
@@ -17,7 +17,6 @@ public class Usuario {
     }
 
     public Usuario(String nome) {
-
         this.nome = nome;
     }
 }
