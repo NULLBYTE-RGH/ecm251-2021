@@ -4,10 +4,21 @@ package vitor.joao;
 // Quando isso
 //acontece, é preciso retirar algum membro do sistema.
 
+import vitor.joao.enums.Hora;
+
 public class Sistema{
+
+    private final Horario_Atual horario;
+
+    public Sistema(Horario_Atual hora) {
+        //Definindo e setando hora atual
+        hora.Definir();
+        this.horario = hora;
+    }
 
     public void Boas_Vindas(){
         //
+        System.out.println(horario.Mostar());
     }
 
     public void Menu(){
