@@ -27,10 +27,10 @@ public class Sistema{
 
     public String Horario(){
 
-        String hora ="3:40";
+        //Os membros também devem ser capazes de perguntarpara o sistema se ele está em horário normal de trabalho ou se
+        //estão em horário de atividades “extras”
 
-       //   qual o horário eles
-        //    estão atuando
+        String hora ="3:40";
 
         return hora;
     }
