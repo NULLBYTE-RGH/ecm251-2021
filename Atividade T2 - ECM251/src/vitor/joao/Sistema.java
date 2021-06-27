@@ -104,7 +104,7 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
             if (op == 0) {
                 Login();
             } //SAIR
-            else {
+            else if (op>2 || op<0) {
                 System.out.println("Opção Invalida!");
             }
 
@@ -112,7 +112,7 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
         }
     }
 
-    public void Login() throws IOException {
+    public void Login(){
         System.out.println("\t\t\tLogin");
         System.out.println("Insira o email:\t");
         try {
@@ -275,7 +275,7 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
     }
 
     @Override
-    public void Relatorio() throws IOException {
+    public void Relatorio() {
         try {
             BufferedReader csvReader = new BufferedReader(new FileReader("arquivo_super_Secreto_nao_abrir.csv"));
             String row;

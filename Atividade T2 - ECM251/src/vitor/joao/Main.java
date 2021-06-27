@@ -1,7 +1,7 @@
 package vitor.joao;
 
-
-import java.io.IOException;
+//joao vitor quirino sarti 18.01224-8
+//matheus rossini de souza 18.01060-0
 
 public class Main {
     public static void main(String[] args) {
@@ -11,10 +11,12 @@ public class Main {
 	SYS.Boas_Vindas();
         try {
             SYS.Login();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            SYS.Relatorio();
         }
     }
+
+
 
 
 }
