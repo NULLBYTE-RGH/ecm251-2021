@@ -36,6 +36,7 @@ public class Sistema extends Membro implements PostarMensagem{
             System.out.println("3 - Mostrar Horário de Trabalho");
             System.out.println("4 - Trocar horário de Trabalho");
             System.out.println("5 - Excluir Membro");
+            System.out.println("6 - sair");
             System.out.println("0 - Encerrar Sistema");
             Scanner opcao = new Scanner(System.in);
             int op = opcao.nextInt();
@@ -43,17 +44,21 @@ public class Sistema extends Membro implements PostarMensagem{
                 Cadastro();
             }
             if (op == 2) {
-                Postar(Membros.BIG, horario);
+                System.out.println("Menssagem: ");
+                String menssagem = opcao.next();
+                Postar(Membros.BIG, horario,menssagem);
             }
             if (op == 3) {
-                horario.Mostrar();
+                System.out.println("Horário atual:["+horario.Mostrar()+"] Agora, volte ao trabalho!");
             }
             if (op == 4) {
-                if (horario.equals(Hora.REGULAR))
+                if (horario.Mostrar().equals(Hora.REGULAR))
                     horario.Alterar(Hora.EXTRA);
                 else horario.Alterar(Hora.REGULAR);
             }
             if (op == 5){Excluir();};
+            if (op ==6){Login();}
+            if(op==0){System.exit(0);}
 
         }
     }
@@ -68,15 +73,24 @@ public class Sistema extends Membro implements PostarMensagem{
             Scanner opcao = new Scanner(System.in);
             int op = opcao.nextInt();
             if (op == 1) {
-                if (data.equals("MOBILE"))
-                    Postar(Membros.MOBILE, horario);
-                if (data.equals("HEAVY"))
-                    Postar(Membros.HEAVY, horario);
-                if (data.equals("SCRIPT"))
-                    Postar(Membros.SCRIPT, horario);
+                if (data.equals("MOBILE")) {
+                    System.out.println("Menssagem: ");
+                    String menssagem = opcao.next();
+                    Postar(Membros.MOBILE, horario,menssagem);
+                }
+                if (data.equals("HEAVY")) {
+                    System.out.println("Menssagem: ");
+                    String menssagem = opcao.next();
+                    Postar(Membros.HEAVY, horario,menssagem);
+                }
+                if (data.equals("SCRIPT")) {
+                    System.out.println("Menssagem: ");
+                    String menssagem = opcao.next();
+                    Postar(Membros.SCRIPT, horario,menssagem);
+                }
             }
             if (op == 2) {
-                horario.Mostrar();
+                System.out.println("Horário atual:["+horario.Mostrar()+"] Agora, volte ao trabalho!");
             }
             if (op == 0) {
                 try {
@@ -104,6 +118,7 @@ public class Sistema extends Membro implements PostarMensagem{
         while ((row = csvReader.readLine()) != null) {
             String[] data = row.split(";");
             if(data[1].equals(op)){
+                csvReader.close();
                 logado = true;
                 System.out.println("\t   Bem vindo "+ data[0]);
                 if(data[2].equals("BIG")){
@@ -120,9 +135,6 @@ public class Sistema extends Membro implements PostarMensagem{
 
 
     public void Cadastro(){
-        FileWriter fileWriter;{
-            File arquivo = new File("arquivo_super_Secreto_nao_abrir.csv");
-        }
         System.out.println("Digite o nome:");
         Scanner n = new Scanner(System.in);
         String nome = n.nextLine();
@@ -180,6 +192,8 @@ public class Sistema extends Membro implements PostarMensagem{
         String lineToRemove = op+";"+op2+";"+op3;
         String currentLine;
 
+        int encontrado = 0;
+
         while((currentLine = reader.readLine()) != null) {
             String trimmedLine = currentLine.trim();
             if (trimmedLine.equals(lineToRemove)) continue;
@@ -187,57 +201,63 @@ public class Sistema extends Membro implements PostarMensagem{
         }
         writer.close();
         reader.close();
-        tempFile.delete(inputFile);
-        boolean flag = tempFile.renameTo(inputFile);
 
-    }
+        inputFile.delete();
+        File file = new File("TempFile.csv");
+        File file2 = new File("arquivo_super_Secreto_nao_abrir.csv");
+        file.renameTo(file2);
+
+        }
+
+
+
 
 
     @Override
-    public String Postar(Membros m, Horario_Atual h) {
+    public String Postar(Membros m, Horario_Atual h, String menssagem) {
         String msg = null;
-        if (m.equals(Membros.MOBILE)){msg = MobileMembers(h);}
-        if (m.equals(Membros.BIG)){msg = BigBrothers(h);}
-        if (m.equals(Membros.HEAVY)){msg = HeavyLifters(h);}
-        if (m.equals(Membros.SCRIPT)){msg = ScriptGuys(h);}
+        if (m.equals(Membros.MOBILE)){msg = MobileMembers(h,menssagem);}
+        if (m.equals(Membros.BIG)){msg = BigBrothers(h,menssagem);}
+        if (m.equals(Membros.HEAVY)){msg = HeavyLifters(h,menssagem);}
+        if (m.equals(Membros.SCRIPT)){msg = ScriptGuys(h,menssagem);}
         System.out.println(msg);
         return msg;
     }
 
     @Override
-    public String MobileMembers(Horario_Atual h){
+    public String MobileMembers(Horario_Atual h, String menssagem){
         String m = "Happy Coding!";
         String mExtra = "Happy_C0d1ng. Maskers";
         if(h.Mostrar().equals(Hora.REGULAR))
-            return m;
-        else return mExtra;
+            return menssagem+" ASS:"+m;
+        else return menssagem+" ASS:"+mExtra;
     }
 
     @Override
-    public String BigBrothers(Horario_Atual h) {
+    public String BigBrothers(Horario_Atual h,String menssagem) {
         String m = "Sempre ajudando as pessoas membros ou não S2!";
         String mExtra = "...";
         if(h.Mostrar().equals(Hora.REGULAR))
-            return m;
-        else return mExtra;
+            return menssagem+" ASS:"+m;
+        else return menssagem+" ASS:"+mExtra;
     }
 
     @Override
-    public String HeavyLifters(Horario_Atual h) {
+    public String HeavyLifters(Horario_Atual h,String menssagem) {
         String m = "Podem contar conosco!";
         String mExtra = "N00b_qu3_n_Se_r3pita.bat";
         if(h.Mostrar().equals(Hora.REGULAR))
-            return m;
-        else return mExtra;
+            return menssagem+" ASS:"+m;
+        else return menssagem+" ASS:"+mExtra;
     }
 
     @Override
-    public String ScriptGuys(Horario_Atual h) {
+    public String ScriptGuys(Horario_Atual h,String menssagem) {
         String m = "Prazer em ajudar novos amigos de código!";
         String mExtra = "“QU3Ro_S3us_r3curs0s.py";
         if(h.Mostrar().equals(Hora.REGULAR))
-            return m;
-        else return mExtra;
+            return menssagem+" ASS:"+m;
+        else return menssagem+" ASS:"+mExtra;
     }
 }
 

@@ -10,11 +10,11 @@ public abstract class Membro{
     public String email;
     public String funcao;
 
-    public abstract String MobileMembers(Horario_Atual h);
+    public abstract String MobileMembers(Horario_Atual h,String menssagem);
 
-    public abstract String BigBrothers(Horario_Atual h);
+    public abstract String BigBrothers(Horario_Atual h,String menssagem);
 
-    public abstract String HeavyLifters(Horario_Atual h);
+    public abstract String HeavyLifters(Horario_Atual h,String menssagem);
 
-    public abstract String ScriptGuys(Horario_Atual h);
+    public abstract String ScriptGuys(Horario_Atual h,String menssagem);
 }
