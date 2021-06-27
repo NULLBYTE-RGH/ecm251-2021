@@ -1,25 +1,16 @@
 package vitor.joao;
 
-// lidar com exceçoes
-// Quando isso
-//acontece, é preciso retirar algum membro do sistema.
 
 import vitor.joao.enums.Hora;
 import vitor.joao.interfaces.PostarMensagem;
-import vitor.joao.models.BigBrothers;
 import vitor.joao.enums.Membros;
+import vitor.joao.models.Membro;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 
-public class Sistema{
-    FileWriter fileWriter;{
-        File arquivo = new File("arquivo_super_Secreto_nao_abrir.csv");
-    }
-
+public class Sistema extends Membro implements PostarMensagem{
     private final Horario_Atual horario;
 
     public Sistema(Horario_Atual hora) {
@@ -43,7 +34,17 @@ public class Sistema{
         System.out.println("4 - Trocar horário de Trabalho");
         System.out.println("5 - Excluir Membro");
         System.out.println("0 - Encerrar Sistema");
+        Scanner opcao = new Scanner(System.in);
+        int op = opcao.nextInt();
+        if(op == 1){Cadastro();}
+        if (op == 2){
+            Postar(Membros.BIG, horario);
+        }
+    }
 
+    public String Postar(Membro m , Horario_Atual h) {
+        System.out.println(m);
+        return null;
     }
 
     public void Menu(){
@@ -55,22 +56,42 @@ public class Sistema{
 
     }
 
-    public void Login(){
+    public void Login() throws java.io.IOException {
         System.out.println("\t\t\tLogin");
         System.out.println("Insira o email:\t");
         Scanner login = new Scanner(System.in);
-
-
+        String op = login.nextLine();
+        BufferedReader csvReader = new BufferedReader(new FileReader("arquivo_super_Secreto_nao_abrir.csv"));
+        String row;
+        boolean logado = false;
+        while ((row = csvReader.readLine()) != null) {
+            String[] data = row.split(";");
+            if(data[1].equals(op)){
+                logado = true;
+                System.out.println("\t   Bem vindo "+ data[0]);
+                if(data[2].equals("BIG")){
+                    MenuADM();
+                }
+                else{Menu();}
+            }
+        }
+        if (!logado)
+        System.out.println("Boa tentativa White Hat!");
+        csvReader.close();
     }
 
+
     public void Cadastro(){
+        FileWriter fileWriter;{
+            File arquivo = new File("arquivo_super_Secreto_nao_abrir.csv");
+        }
         System.out.println("Digite o nome:");
-        Scanner nome = new Scanner(System.in);
-        String nome1 = nome.nextLine();
+        Scanner n = new Scanner(System.in);
+        String nome = n.nextLine();
 
         System.out.println("Digite o email:");
-        Scanner email = new Scanner(System.in);
-        String email1 = email.nextLine();
+        Scanner em = new Scanner(System.in);
+        String email = em.nextLine();
 
         System.out.println("Digite a função:");
         System.out.println("1 - BigBrother");
@@ -80,22 +101,14 @@ public class Sistema{
         Scanner scan = new Scanner(System.in);
         Membros funcao = null;
         int op = scan.nextInt();
-        switch (op) {
-            case 1:
+        if (op ==1)
                 funcao = Membros.BIG;
-
-            case 2:
+        if(op == 2)
                 funcao = Membros.HEAVY;
-
-            case 3:
+        if(op == 3)
                 funcao = Membros.MOBILE;
-
-            case 4:
+        if(op == 4)
                 funcao = Membros.SCRIPT;
-        }
-
-        
-
 
         FileWriter excel = null;
         try {
@@ -109,18 +122,40 @@ public class Sistema{
     }
 
 
-    public String Mostar_Hora(){
-        //Os membros também devem ser capazes de perguntarpara o sistema se ele está em horário normal de trabalho ou se
-        //estão em horário de atividades “extras”
-
-        String hora = "3:40";
-            return hora;
+    @Override
+    public String Postar(Membros m, Horario_Atual h) {
+        return null;
     }
-    public void Mudar_Hora(){
+    @Override
+    public String MobileMembers(Horario_Atual h){
+        String m = "Happy Coding!";
+        String mExtra = "Happy_C0d1ng. Maskers";
+        if(h.equals(Hora.REGULAR))
+        return m;
+        else return mExtra;
+    }
 
-        //O sistema deve ser capaz
-        //de mudar o horário de trabalho quando for solicitado.
+    @Override
+    public String BigBrothers(Horario_Atual h) {
+        String m = "Sempre ajudando as pessoas membros ou não S2!";
+        String mExtra = "...";
+        if(h.equals(Hora.REGULAR))
+            return m;
+        else return mExtra;
+    }
 
+    @Override
+    public String HeavyLifters(Horario_Atual h) {
+        String m = "Podem contar conosco!";
+        String mExtra = "N00b_qu3_n_Se_r3pita.bat";
+        if(h.equals(Hora.REGULAR))
+            return m;
+        else return mExtra;
+    }
+
+    @Override
+    public String ScriptGuys() {
+        return null;
     }
 }
 

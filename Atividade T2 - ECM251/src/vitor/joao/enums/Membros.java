@@ -1,12 +1,7 @@
 package vitor.joao.enums;
 
 public enum Membros {
-    MOBILE("Mobile Members: gerenciam postagens em redes sociais.\n" +
-            "Seus postos variam de acordo com o momento do dia. Durante\n" +
-            "as atividades regulares, todos eles devem assinar as\n" +
-            "postagens com “Happy Coding!”. Durante as atividades\n" +
-            "“extras” da “MAsK_S0c13ty”, eles devem assinar os posts\n" +
-            "como “Happy_C0d1ng. Maskers”"),
+    MOBILE("Mobile Members: gerenciam postagens em redes sociais.\n"),
     HEAVY("Heavy Lifters: São os responsáveis por manter os\n" +
             "repositórios. Cada vez que mandam uma solicitação de push,\n" +
             "assinam elas com “Podem contar conosco!”, durante atividade\n" +
