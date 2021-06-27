@@ -7,5 +7,6 @@ public class Main {
 
     Horario_Atual hora = new Horario_Atual();
 	Sistema SYS = new Sistema(hora);
+	SYS.Boas_Vindas();
     }
 }
