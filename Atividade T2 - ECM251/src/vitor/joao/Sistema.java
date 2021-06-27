@@ -5,14 +5,15 @@ import vitor.joao.enums.Hora;
 import vitor.joao.interfaces.PostarMensagem;
 import vitor.joao.enums.Membros;
 import vitor.joao.models.Membro;
+import vitor.joao.interfaces.Apresentacao;
 
 import java.io.*;
-import java.sql.SQLOutput;
-import java.util.List;
 import java.util.Scanner;
 
 
-public class Sistema extends Membro implements PostarMensagem{
+public class Sistema extends Membro implements PostarMensagem,Apresentacao {
+
+
     private final Horario_Atual horario;
 
     public Sistema(Horario_Atual hora) {
@@ -21,10 +22,10 @@ public class Sistema extends Membro implements PostarMensagem{
         this.horario = hora;
     }
 
-    public void Boas_Vindas(){
+    public void Boas_Vindas() {
         //
         System.out.println("\t\t\t\t\t========MAsK_S0c13ty========");
-        System.out.println("Horario atual :"+horario.Mostrar());
+        System.out.println("Horario atual :" + horario.Mostrar());
     }
 
     public void MenuADM() throws IOException {
@@ -46,24 +47,32 @@ public class Sistema extends Membro implements PostarMensagem{
             if (op == 2) {
                 System.out.println("Menssagem: ");
                 String menssagem = opcao.next();
-                Postar(Membros.BIG, horario,menssagem);
+                Postar(Membros.BIG, horario, menssagem);
             }
             if (op == 3) {
-                System.out.println("Horário atual:["+horario.Mostrar()+"] Agora, volte ao trabalho!");
+                System.out.println("Horário atual:[" + horario.Mostrar() + "] Agora, volte ao trabalho!");
             }
             if (op == 4) {
                 if (horario.Mostrar().equals(Hora.REGULAR))
                     horario.Alterar(Hora.EXTRA);
                 else horario.Alterar(Hora.REGULAR);
             }
-            if (op == 5){Excluir();};
-            if (op ==6){Login();}
-            if(op==0){System.exit(0);}
+            if (op == 5) {
+                Excluir();
+            }
+            if (op == 6) {
+                Login();
+            }
+            if (op == 0) {
+                System.exit(0);
+            } else {
+                System.out.println("opcao invalida!");
+            }
 
         }
     }
 
-    public void Menu(String data) {
+    public void Menu(String data) throws IOException {
         while (true) {
             //opçoes e exibir horario
             System.out.println("\t\t\tMENU");
@@ -76,65 +85,67 @@ public class Sistema extends Membro implements PostarMensagem{
                 if (data.equals("MOBILE")) {
                     System.out.println("Menssagem: ");
                     String menssagem = opcao.next();
-                    Postar(Membros.MOBILE, horario,menssagem);
+                    Postar(Membros.MOBILE, horario, menssagem);
                 }
                 if (data.equals("HEAVY")) {
                     System.out.println("Menssagem: ");
                     String menssagem = opcao.next();
-                    Postar(Membros.HEAVY, horario,menssagem);
+                    Postar(Membros.HEAVY, horario, menssagem);
                 }
                 if (data.equals("SCRIPT")) {
                     System.out.println("Menssagem: ");
                     String menssagem = opcao.next();
-                    Postar(Membros.SCRIPT, horario,menssagem);
+                    Postar(Membros.SCRIPT, horario, menssagem);
                 }
             }
             if (op == 2) {
-                System.out.println("Horário atual:["+horario.Mostrar()+"] Agora, volte ao trabalho!");
+                System.out.println("Horário atual:[" + horario.Mostrar() + "] Agora, volte ao trabalho!");
             }
             if (op == 0) {
-                try {
-                    Login();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Login();
             } //SAIR
             else {
-                System.out.println("Opção Invalida");
+                System.out.println("Opção Invalida!");
             }
 
 
         }
     }
 
-    public void Login() throws java.io.IOException {
+    public void Login() throws IOException {
         System.out.println("\t\t\tLogin");
         System.out.println("Insira o email:\t");
-        Scanner login = new Scanner(System.in);
-        String op = login.nextLine();
-        BufferedReader csvReader = new BufferedReader(new FileReader("arquivo_super_Secreto_nao_abrir.csv"));
-        String row;
-        boolean logado = false;
-        while ((row = csvReader.readLine()) != null) {
-            String[] data = row.split(";");
-            if(data[1].equals(op)){
-                csvReader.close();
-                logado = true;
-                System.out.println("\t   Bem vindo "+ data[0]);
-                if(data[2].equals("BIG")){
-                    MenuADM();
+        try {
+            Scanner login = new Scanner(System.in);
+            String op = login.nextLine();
+            BufferedReader csvReader = new BufferedReader(new FileReader("arquivo_super_Secreto_nao_abrir.csv"));
+            String row;
+            boolean logado = false;
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(";");
+                if (data[1].equals(op)) {
+                    csvReader.close();
+                    logado = true;
+                    System.out.println("\t   Bem vindo " + data[0]);
+                    if (data[2].equals("BIG")) {
+                        MenuADM();
+                    } else {
+                        Menu(data[2]);
+                    }
                 }
-                else{Menu(data[2]);}
-            }
 
+            }
+            if (!logado)
+                System.out.println("Boa tentativa White Hat!");
+            csvReader.close();
+        } catch (Exception e) {
+            Relatorio();
         }
-        if (!logado)
-        System.out.println("Boa tentativa White Hat!");
-        csvReader.close();
     }
 
 
-    public void Cadastro(){
+    public void Cadastro() throws IOException {
+        try{
         System.out.println("Digite o nome:");
         Scanner n = new Scanner(System.in);
         String nome = n.nextLine();
@@ -151,22 +162,22 @@ public class Sistema extends Membro implements PostarMensagem{
         Scanner scan = new Scanner(System.in);
         Membros funcao = null;
         int op = scan.nextInt();
-        if (op ==1)
-                funcao = Membros.BIG;
-        if(op == 2)
-                funcao = Membros.HEAVY;
-        if(op == 3)
-                funcao = Membros.MOBILE;
-        if(op == 4)
-                funcao = Membros.SCRIPT;
+        if (op == 1){funcao = Membros.BIG;FileWriter excel;excel = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
+            excel.append(nome + ";" + email + ";" + funcao + "\n");
+            excel.close();}
+        if (op == 2){funcao = Membros.HEAVY;FileWriter excel;excel = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
+            excel.append(nome + ";" + email + ";" + funcao + "\n");
+            excel.close();}
+        if (op == 3){funcao = Membros.MOBILE;FileWriter excel;excel = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
+            excel.append(nome + ";" + email + ";" + funcao + "\n");
+            excel.close();}
+        if (op == 4){funcao = Membros.SCRIPT;FileWriter excel;excel = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
+            excel.append(nome + ";" + email + ";" + funcao + "\n");
+            excel.close();}
+        if(op>4 || op <0){Cadastro();}
 
-        FileWriter excel = null;
-        try {
-            excel = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
-            excel.append( nome + ";" + email + ";" + funcao + "\n");
-            excel.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            Relatorio();
         }
 
     }
@@ -189,12 +200,10 @@ public class Sistema extends Membro implements PostarMensagem{
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
-        String lineToRemove = op+";"+op2+";"+op3;
+        String lineToRemove = op + ";" + op2 + ";" + op3;
         String currentLine;
 
-        int encontrado = 0;
-
-        while((currentLine = reader.readLine()) != null) {
+        while ((currentLine = reader.readLine()) != null) {
             String trimmedLine = currentLine.trim();
             if (trimmedLine.equals(lineToRemove)) continue;
             writer.write(currentLine + System.getProperty("line.separator"));
@@ -207,59 +216,82 @@ public class Sistema extends Membro implements PostarMensagem{
         File file2 = new File("arquivo_super_Secreto_nao_abrir.csv");
         file.renameTo(file2);
 
-        }
-
-
-
+    }
 
 
     @Override
     public String Postar(Membros m, Horario_Atual h, String menssagem) {
         String msg = null;
-        if (m.equals(Membros.MOBILE)){msg = MobileMembers(h,menssagem);}
-        if (m.equals(Membros.BIG)){msg = BigBrothers(h,menssagem);}
-        if (m.equals(Membros.HEAVY)){msg = HeavyLifters(h,menssagem);}
-        if (m.equals(Membros.SCRIPT)){msg = ScriptGuys(h,menssagem);}
+        if (m.equals(Membros.MOBILE)) {
+            msg = MobileMembers(h, menssagem);
+        }
+        if (m.equals(Membros.BIG)) {
+            msg = BigBrothers(h, menssagem);
+        }
+        if (m.equals(Membros.HEAVY)) {
+            msg = HeavyLifters(h, menssagem);
+        }
+        if (m.equals(Membros.SCRIPT)) {
+            msg = ScriptGuys(h, menssagem);
+        }
         System.out.println(msg);
         return msg;
     }
 
     @Override
-    public String MobileMembers(Horario_Atual h, String menssagem){
+    public String MobileMembers(Horario_Atual h, String menssagem) {
         String m = "Happy Coding!";
         String mExtra = "Happy_C0d1ng. Maskers";
-        if(h.Mostrar().equals(Hora.REGULAR))
-            return menssagem+" ASS:"+m;
-        else return menssagem+" ASS:"+mExtra;
+        if (h.Mostrar().equals(Hora.REGULAR))
+            return menssagem + " ASS:" + m;
+        else return menssagem + " ASS:" + mExtra;
     }
 
     @Override
-    public String BigBrothers(Horario_Atual h,String menssagem) {
+    public String BigBrothers(Horario_Atual h, String menssagem) {
         String m = "Sempre ajudando as pessoas membros ou não S2!";
         String mExtra = "...";
-        if(h.Mostrar().equals(Hora.REGULAR))
-            return menssagem+" ASS:"+m;
-        else return menssagem+" ASS:"+mExtra;
+        if (h.Mostrar().equals(Hora.REGULAR))
+            return menssagem + " ASS:" + m;
+        else return menssagem + " ASS:" + mExtra;
     }
 
     @Override
-    public String HeavyLifters(Horario_Atual h,String menssagem) {
+    public String HeavyLifters(Horario_Atual h, String menssagem) {
         String m = "Podem contar conosco!";
         String mExtra = "N00b_qu3_n_Se_r3pita.bat";
-        if(h.Mostrar().equals(Hora.REGULAR))
-            return menssagem+" ASS:"+m;
-        else return menssagem+" ASS:"+mExtra;
+        if (h.Mostrar().equals(Hora.REGULAR))
+            return menssagem + " ASS:" + m;
+        else return menssagem + " ASS:" + mExtra;
     }
 
     @Override
-    public String ScriptGuys(Horario_Atual h,String menssagem) {
+    public String ScriptGuys(Horario_Atual h, String menssagem) {
         String m = "Prazer em ajudar novos amigos de código!";
         String mExtra = "“QU3Ro_S3us_r3curs0s.py";
-        if(h.Mostrar().equals(Hora.REGULAR))
-            return menssagem+" ASS:"+m;
-        else return menssagem+" ASS:"+mExtra;
+        if (h.Mostrar().equals(Hora.REGULAR))
+            return menssagem + " ASS:" + m;
+        else return menssagem + " ASS:" + mExtra;
+    }
+
+    @Override
+    public void Relatorio() throws IOException {
+        try {
+            BufferedReader csvReader = new BufferedReader(new FileReader("arquivo_super_Secreto_nao_abrir.csv"));
+            String row;
+            System.out.println("Relatorio de Usuarios :\n");
+            while ((row = csvReader.readLine()) != null) {
+                System.out.println(row);
+            }
+            csvReader.close();
+            System.out.println("Escolha um Usuario para excluir:");
+            Excluir();
+        } catch (Exception e) {
+            Relatorio();
+        }
     }
 }
+
 
 
 

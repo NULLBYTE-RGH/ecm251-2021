@@ -6,5 +6,10 @@ package vitor.joao.interfaces;
 //enfático na palavra INTERFACE), que deve permitir que ele se
 //apresente quando o relatório for chamado
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public interface Apresentacao {
+
+    public void Relatorio() throws IOException;
 }
