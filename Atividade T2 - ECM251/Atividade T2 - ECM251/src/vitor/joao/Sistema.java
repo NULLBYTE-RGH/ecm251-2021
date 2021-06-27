@@ -58,7 +58,7 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
                 else horario.Alterar(Hora.REGULAR);
             }
             if (op == 5) {
-                Excluir();
+                Relatorio();
             }
             if (op == 6) {
                 Login();
@@ -280,11 +280,16 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
             BufferedReader csvReader = new BufferedReader(new FileReader("arquivo_super_Secreto_nao_abrir.csv"));
             String row;
             System.out.println("Relatorio de Usuarios :\n");
+            System.out.println("\n---------------------------------------------------------");
             while ((row = csvReader.readLine()) != null) {
-                System.out.println(row);
+                String[] data = row.split(";");
+                System.out.println("Nome: "+data[0]);
+                System.out.println("Email: "+data[1]);
+                System.out.println("Funcao: "+data[2]);
+                System.out.println("\n---------------------------------------------------------");
             }
             csvReader.close();
-            System.out.println("Escolha um Usuario para excluir:");
+            System.out.println("\n\n\t\t\t\t=======>Escolha um Usuario para excluir:<=======");
             Excluir();
         } catch (Exception e) {
             Relatorio();
