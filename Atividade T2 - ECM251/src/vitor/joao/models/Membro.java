@@ -14,7 +14,7 @@ public abstract class Membro{
 
     public abstract String BigBrothers(Horario_Atual h);
 
-    public abstract String HeavyLifters();
-    public abstract String ScriptGuys();
+    public abstract String HeavyLifters(Horario_Atual h);
 
+    public abstract String ScriptGuys(Horario_Atual h);
 }

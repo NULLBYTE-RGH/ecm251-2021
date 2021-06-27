@@ -25,7 +25,7 @@ public class Horario_Atual {
         atual = alterar;
     }
 
-    public Hora Mostar(){
+    public Hora Mostrar(){
         return atual;
     }
 }
