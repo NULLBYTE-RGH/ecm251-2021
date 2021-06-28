@@ -8,5 +8,11 @@ public interface PostarMensagem {
 
     //Todos os membros devem ser capazes de implementar a interface
     //PostarMensagem
-    public String Postar(Membros m, Horario_Atual h, String menssagem);
+    /**
+     * Posta a menssagem de acordo com a função
+     * @param m tipo de menbro
+     * @param h periodo de trabalho REGULAR ou EXTRA
+     * @param menssagem a menssagem a ser postada
+     */
+    String Postar(Membros m, Horario_Atual h, String menssagem);
 }

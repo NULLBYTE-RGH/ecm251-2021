@@ -9,12 +9,19 @@ import vitor.joao.interfaces.Apresentacao;
 
 public class Horario_Atual implements Apresentacao{
     private Hora atual;
-
+    /**
+     * gera um numero aleatorio
+     * @param min define valor minimo
+     * @param max define valor maximo
+     */
     private static int getRandomNumberInRange(int min, int max) {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
 
+    /**
+     * Define o horario atual do sistema
+     */
     public void Definir() {
         //Definir horario ao iniciar o sistema
         int Rand = getRandomNumberInRange(0, 1);
@@ -24,11 +31,16 @@ public class Horario_Atual implements Apresentacao{
         else
             atual =  Hora.EXTRA;
     }
-
+    /**
+     * Altera o horario do sistema atraves do parametro passado
+     * @param alterar valor a se definir como horario atual
+     */
     public void Alterar(Hora alterar){
         atual = alterar;
     }
-
+    /**
+     * Retorna o horario atual
+     */
     public Hora Mostrar(){
         return atual;
     }
@@ -48,7 +60,10 @@ public class Horario_Atual implements Apresentacao{
     }
 
 
-
+    /**
+     * Remove um usuario do banco de dados
+     * @throws IOException caso haja erro
+     */
     public void Excluir() throws IOException {
         try {
             System.out.println("Insira o nome:\t");

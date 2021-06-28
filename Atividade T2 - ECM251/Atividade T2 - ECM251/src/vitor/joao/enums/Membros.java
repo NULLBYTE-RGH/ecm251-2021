@@ -21,11 +21,16 @@ public enum Membros {
             "recebeu tal mensagem");
 
     private final String descricao;
-
+    /**
+     * construtor da classe Menbros
+     * @param descricao string com descrição da hora
+     */
     Membros(String descricao) {
         this.descricao = descricao;
     }
-
+    /**
+     * Retorna uma descrição
+     */
     public String getDescricao() {
         return descricao;
     }

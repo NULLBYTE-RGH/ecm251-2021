@@ -16,18 +16,31 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
 
     private final Horario_Atual horario;
 
+    /**
+     * Sistema Principal
+     *
+     * @param hora parametro de horario inicial gerado pela classe Horario_Atual
+     * @author  joao vitor quirino sarti 18.01224-8
+     * @author  matheus rossini de souza 18.01060-0
+     */
     public Sistema(Horario_Atual hora) {
+
         //Definindo e setando hora atual
         hora.Definir();
         this.horario = hora;
     }
-
+    /**
+     * Exibe boas vindas
+     **/
     public void Boas_Vindas() {
-        //
+
         System.out.println("\t\t\t\t\t========MAsK_S0c13ty========");
         System.out.println("Horario atual :" + horario.Mostrar());
     }
-
+    /**
+     * Exibe menu para o cargo BigBrothers
+     * @throws IOException caso haja um erro
+     */
     public void MenuADM() throws IOException {
         while (true) {
             //opçoes e exibir horario
@@ -37,7 +50,7 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
             System.out.println("3 - Mostrar Horário de Trabalho");
             System.out.println("4 - Trocar horário de Trabalho");
             System.out.println("5 - Excluir Membro");
-            System.out.println("6 - sair");
+            System.out.println("6 - Sair");
             System.out.println("0 - Encerrar Sistema");
             Scanner opcao = new Scanner(System.in);
             int op = opcao.nextInt();
@@ -65,14 +78,17 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
             }
             if (op == 0) {
                 System.exit(0);
-            } else {
-                System.out.println("opcao invalida!");
             }
+             else if (op>6 || op<0) {
+                System.out.println("Opção Invalida!");
 
         }
-    }
-
-    public void Menu(String data) throws IOException {
+    }}
+    /**
+     * Exibe menu para os cargos MobileMembers,HeavyLifters,ScriptGuys
+     * @param data define o cargo do usuario
+     */
+    public void Menu(String data){
         while (true) {
             //opçoes e exibir horario
             System.out.println("\t\t\tMENU");
@@ -111,7 +127,10 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
 
         }
     }
-
+    /**
+     * Autenticação do usuario
+     * @exception Exception chama o metodo Relatorio()
+     */
     public void Login(){
         System.out.println("\t\t\tLogin");
         System.out.println("Insira o email:\t");
@@ -143,8 +162,11 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
         }
     }
 
-
-    public void Cadastro() throws IOException {
+    /**
+     * Adiciona um usuario ao banco de dados
+     * @exception Exception chama o metodo Relatorio()
+     */
+    public void Cadastro(){
         try{
         System.out.println("Digite o nome:");
         Scanner n = new Scanner(System.in);
@@ -181,7 +203,10 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
         }
 
     }
-
+    /**
+     * Remove um usuario do banco de dados
+     * @throws IOException caso haja erro
+     */
     public void Excluir() throws IOException {
 
         System.out.println("Insira o nome:\t");
@@ -215,10 +240,7 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
         File file = new File("TempFile.csv");
         File file2 = new File("arquivo_super_Secreto_nao_abrir.csv");
         file.renameTo(file2);
-
     }
-
-
     @Override
     public String Postar(Membros m, Horario_Atual h, String menssagem) {
         String msg = null;
@@ -243,8 +265,8 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
         String m = "Happy Coding!";
         String mExtra = "Happy_C0d1ng. Maskers";
         if (h.Mostrar().equals(Hora.REGULAR))
-            return menssagem + " ASS:" + m;
-        else return menssagem + " ASS:" + mExtra;
+            return menssagem + "\nASS:" + m;
+        else return menssagem + "\nASS:" + mExtra;
     }
 
     @Override
@@ -252,8 +274,8 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
         String m = "Sempre ajudando as pessoas membros ou não S2!";
         String mExtra = "...";
         if (h.Mostrar().equals(Hora.REGULAR))
-            return menssagem + " ASS:" + m;
-        else return menssagem + " ASS:" + mExtra;
+            return menssagem + "\nASS:" + m;
+        else return menssagem + "\nASS:" + mExtra;
     }
 
     @Override
@@ -261,8 +283,8 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
         String m = "Podem contar conosco!";
         String mExtra = "N00b_qu3_n_Se_r3pita.bat";
         if (h.Mostrar().equals(Hora.REGULAR))
-            return menssagem + " ASS:" + m;
-        else return menssagem + " ASS:" + mExtra;
+            return menssagem + "\nASS:" + m;
+        else return menssagem + "\nASS:" + mExtra;
     }
 
     @Override
@@ -270,8 +292,8 @@ public class Sistema extends Membro implements PostarMensagem,Apresentacao {
         String m = "Prazer em ajudar novos amigos de código!";
         String mExtra = "“QU3Ro_S3us_r3curs0s.py";
         if (h.Mostrar().equals(Hora.REGULAR))
-            return menssagem + " ASS:" + m;
-        else return menssagem + " ASS:" + mExtra;
+            return menssagem + "\nASS:" + m;
+        else return menssagem + "\nASS:" + mExtra;
     }
 
     @Override

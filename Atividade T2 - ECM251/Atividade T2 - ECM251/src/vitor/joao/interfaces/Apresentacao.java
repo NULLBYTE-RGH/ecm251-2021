@@ -10,6 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface Apresentacao {
-
-    public void Relatorio() throws IOException;
+    /**
+     * Retorna o relatorio dos usuarios no banco de dados
+     * @throws IOException caso haja um erro
+     */
+    void Relatorio() throws IOException;
 }
